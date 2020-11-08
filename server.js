@@ -9,6 +9,31 @@ const connectdb = require('./config/db');
 const passportSetup = require('./config/passport-setup');
 require('dotenv').config({ path: __dirname + '/.env' });
 
+//Multer Storage
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+})
+ 
+var upload = multer({ storage: storage })
+
+
+// Profile pic upload
+app.post('/uploadfile', upload.single('myFile'), (req, res, next) => {
+  const file = req.file
+  if (!file) {
+    const error = new Error('Please upload a file')
+    error.httpStatusCode = 400
+    return next(error)
+  }
+    res.send(file)
+  
+})
+ 
 // *Routes
 const profroutes = require('./routes/profroutes.js');
 const userroutes = require('./routes/userroutes.js');
