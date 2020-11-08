@@ -10,23 +10,15 @@ const Blog = new mongoose.Schema({
       required: true
     },
     author: {
-        type: String,
+        type: ObjectID,
         ref: Professional
     },
     body: {
          type:String 
     },
-    comments:[{
-        commentor:{
-            type:ObjectID
-        },
-        body:
-        {
-          type: String,
-          required: true
-        }
-    
-    }]
+      comments:{
+        ref: Comment
+      }
 
  })
   const Blog = mongoose.model('blogs', blogSchema);

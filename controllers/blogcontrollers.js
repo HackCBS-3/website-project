@@ -25,9 +25,18 @@ module.exports.writeblog = async (req, res) =>{
     const { title,author,body}=req.body;
     try{
         let blog = await Blog.findOne({author: req.user._id,title : req.body.title });
-    if (user) {
+    if (!blog) {
       return res.status(400).json('A blog with the same title is already written by you');
     }
+  
+      blogs= new Blog({
+        author:req.user._id,
+        title: req.body.title,
+        body:req.body.body
+      });
+      console.log(blogs);
+      await blogs.save();
+    
 }catch(err)
 {
     console.log(err);
