@@ -7,11 +7,11 @@ const professionalSchema = new mongoose.Schema({
       required: true,
       trim: true
     },
-    display_name: {
+    /*display_name: {
         type: String,
         required: true,
         trim: true
-    },
+    },*/
     gender: {
         type: String,
         required: true,
