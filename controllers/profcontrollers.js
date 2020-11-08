@@ -8,6 +8,11 @@ const bcrypt = require('bcryptjs');
 const otpGenerator = require("otp-generator");
 const nodemailer = require('nodemailer');
 
+
+//Multer for profile picture
+const multer = require('multer');
+
+
 // *Models
 const User = require('../models/user');
 
@@ -77,6 +82,18 @@ module.exports.post_login = async (req, res) => {
     console.log(err);
     res.status(500).send('server error');
   }
+};
+
+//Route to upload profile picture
+
+module.exports.picture = async (req,res) =>{
+  const file = req.file
+  if (!file) {
+    const error = new Error('Please upload a file')
+    error.httpStatusCode = 400
+    return next(error)
+  }
+    res.send(file);
 };
 
 // @desc     Verify Otp
